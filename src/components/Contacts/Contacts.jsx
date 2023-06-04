@@ -13,10 +13,22 @@ import {
   useDeleteContactMutation,
   useGetContactsQuery,
 } from 'redux/contacsSlice/slice';
+import { useSelector } from "react-redux";
 
 const Contacts = () => {
+ 
   const { data } = useGetContactsQuery();
+  const filter = useSelector((state) => state.filterSlice.filter);
   const [deletContact] = useDeleteContactMutation();
+  let visibelContact = [];
+  if (filter === undefined) {
+    visibelContact = data;
+  } else {
+    visibelContact = data?.filter(({ name }) => {
+      return name.toLowerCase().includes(filter);
+    });
+  }
+
   const onHandelClick = id => {
     deletContact(id);
   };
@@ -24,7 +36,7 @@ const Contacts = () => {
     <ContainerContact>
       <TitileContact>Results:</TitileContact>
       <ListContatct>
-        {data?.map(({ id, name, phone }) => {
+        {visibelContact?.map(({ id, name, phone }) => {
           console.log(id);
           return (
             <ItemContatct key={id}>

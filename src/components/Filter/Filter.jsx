@@ -1,14 +1,14 @@
- 
-import { ContainerFilter, TitleFilter, Labe, Input } from "./Filter.styled";
-// import { filterContact } from "redux/filterContact/slice";
+import { useDispatch } from 'react-redux';
+import { ContainerFilter, TitleFilter, Labe, Input } from './Filter.styled';
+import { filterContact } from 'redux/filterContact/slice';
 
 const Filter = () => {
-//  const dispatch = useDispatch()
-  const handelChange =(e)=>{
-    e.preventDefault()
+  const dispatch = useDispatch();
+  const handelChange = e => {
+    e.preventDefault();
 
-    // dispatch(filterContact(e.target.value))
-  }
+    dispatch(filterContact(e.target.value));
+  };
   return (
     <ContainerFilter>
       <TitleFilter>Contacts</TitleFilter>
